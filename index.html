@@ -4,16 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BioAge – Your real age, measured by science</title>
-  <meta name="description" content="BioAge estimates your biological age from sleep, HRV, blood markers, cardiovascular, and stress data — with AI-powered longevity insights. All data stays on your device." />
+  <meta name="description" content="BioAge estimates your biological age from sleep, HRV, blood markers, cardiovascular health, physical tests, and stress — with AI-powered longevity insights. All data stays on your device." />
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
 
   <nav class="nav">
     <div class="nav-inner">
-      <span class="nav-logo">BioAge</span>
+      <a href="#" class="nav-logo">BioAge</a>
       <div class="nav-links">
         <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#watch">Apple Watch</a>
         <a href="#privacy-badge">Privacy</a>
         <a href="support.html">Support</a>
         <a href="privacy.html">Privacy Policy</a>
@@ -26,7 +28,7 @@
     <div class="hero-text">
       <h1>Your real age,<br>measured by science.</h1>
       <p class="hero-sub">BioAge turns your health data into a single biological age score — and gives you AI-powered guidance to lower it.</p>
-      <a href="#" class="btn-appstore">
+      <a href="https://apps.apple.com/us/app/bioage/id6762235244" class="btn-appstore" target="_blank" rel="noopener">
         <img src="assets/appstore-badge.svg" alt="Download on the App Store" />
       </a>
     </div>
@@ -43,40 +45,121 @@
 
       <div class="feature-card">
         <div class="feature-icon">🧬</div>
-        <h3>5-Pillar Biological Age</h3>
-        <p>Sleep, HRV, blood markers, cardiovascular health, and stress — each scored and weighted into a single biological age estimate.</p>
+        <h3>8-Pillar Biological Age</h3>
+        <p>Sleep, HRV, blood markers, cardiovascular health, stress, reaction time, grip strength, and gait — each scored and weighted into a single biological age estimate.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">❤️</div>
         <h3>Apple Health Integration</h3>
-        <p>Import sleep, HRV, resting heart rate, and blood oxygen directly from Apple Health. Up to 1 year of historical data at once.</p>
+        <p>Import sleep, HRV, and resting heart rate directly from Apple Health. Bring in up to 1 year of historical data in a single tap.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">✨</div>
         <h3>AI Longevity Insights</h3>
-        <p>Claude AI generates plain-language coaching insights personalized to your health goals — streamed in real time.</p>
+        <p>Claude AI generates plain-language coaching insights personalized to your health goals — streamed word-by-word in real time.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🏃</div>
+        <h3>Physical Performance Tests</h3>
+        <p>Measure reaction time, grip strength, and gait cadence using your iPhone sensors. These physical biomarkers contribute to a more complete biological age picture.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">📊</div>
-        <h3>Trends & History</h3>
+        <h3>Trends &amp; History</h3>
         <p>Track your biological age over time with line charts, per-category breakdowns, and streak tracking.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">🔬</div>
         <h3>Lab Report Scanner</h3>
-        <p>Use VisionKit OCR to scan lab documents and auto-fill your blood marker values — no manual typing needed.</p>
+        <p>Scan lab documents with your camera and auto-fill blood marker values via OCR — no manual typing needed. Low-confidence reads are flagged for review.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⌚</div>
+        <h3>Apple Watch + Widget</h3>
+        <p>View your biological age and delta from your wrist or home screen. Supports all 4 Watch complication families and an iOS Home Screen Widget.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">🔒</div>
-        <h3>Privacy First</h3>
-        <p>All personal data stays in your device Keychain — never synced to iCloud, never uploaded to a server.</p>
+        <h3>Privacy &amp; Security First</h3>
+        <p>All data stays on-device in the iOS Keychain. Biometric lock (Face ID / Touch ID) on every launch. Zero third-party SDKs — native Apple frameworks only.</p>
       </div>
 
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="how-inner">
+      <h2>How BioAge calculates your score</h2>
+      <p class="how-sub">Eight evidence-based pillars are scored independently and combined into a single biological age estimate. Missing pillars are gracefully excluded — the score always reflects the data you actually have.</p>
+
+      <div class="pillars-grid">
+
+        <div class="pillar-card">
+          <div class="pillar-weight">35%</div>
+          <div class="pillar-icon">🩸</div>
+          <h4>Blood Markers</h4>
+          <p>15 supported markers — glucose, HbA1c, CRP, cholesterol, and more — compared to evidence-based optimal ranges.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-weight">25%</div>
+          <div class="pillar-icon">😴</div>
+          <h4>Sleep</h4>
+          <p>Duration and quality scored using a 7–9h optimal window. Deep sleep and REM percentages contribute bonus points.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-weight">25%</div>
+          <div class="pillar-icon">💓</div>
+          <h4>HRV</h4>
+          <p>Your RMSSD compared to age- and sex-matched population norms (Nunan et al.). Higher HRV = biologically younger.</p>
+        </div>
+
+        <div class="pillar-card">
+          <div class="pillar-weight">15%</div>
+          <div class="pillar-icon">🧘</div>
+          <h4>Stress</h4>
+          <p>Levels 1–4 are protective. Chronic high stress (5–10) adds years to your score. Self-reported and factored directly in.</p>
+        </div>
+
+        <div class="pillar-card pillar-card-bonus">
+          <div class="pillar-weight pillar-weight-bonus">bonus</div>
+          <div class="pillar-icon">🫀</div>
+          <h4>Cardiovascular</h4>
+          <p>Resting heart rate compared to age norms. Blood pressure optionally provides additional refinement.</p>
+        </div>
+
+        <div class="pillar-card pillar-card-bonus">
+          <div class="pillar-weight pillar-weight-bonus">12%</div>
+          <div class="pillar-icon">⚡</div>
+          <h4>Reaction Time</h4>
+          <p>Measured via the iPhone screen. Compared against Welford age-adjusted norms — a sensitive marker of neural aging.</p>
+        </div>
+
+        <div class="pillar-card pillar-card-bonus">
+          <div class="pillar-weight pillar-weight-bonus">9%</div>
+          <div class="pillar-icon">✊</div>
+          <h4>Grip Strength</h4>
+          <p>Peak force, stability, and duration — each weighted. Grip strength is one of the strongest predictors of all-cause mortality.</p>
+        </div>
+
+        <div class="pillar-card pillar-card-bonus">
+          <div class="pillar-weight pillar-weight-bonus">2%</div>
+          <div class="pillar-icon">🚶</div>
+          <h4>Gait</h4>
+          <p>Step cadence and regularity measured via the accelerometer. Optimal cadence is 100–130 steps per minute.</p>
+        </div>
+
+      </div>
+      <p class="how-footnote">Weights are redistributed proportionally when pillars are absent. Confidence is reported as the fraction of pillars present — so you always know how complete your score is.</p>
     </div>
   </section>
 
@@ -107,6 +190,42 @@
     </div>
   </section>
 
+  <!-- Apple Watch -->
+  <section class="watch-section" id="watch">
+    <div class="watch-inner">
+      <div class="watch-text">
+        <div class="watch-eyebrow">Apple Watch &amp; Widgets</div>
+        <h2>Your biological age,<br>always within reach.</h2>
+        <p>The BioAge Watch app syncs automatically whenever you log a new entry. Check your bio age and delta at a glance — from your wrist or your home screen.</p>
+        <ul class="watch-list">
+          <li>
+            <span class="watch-bullet">⌚</span>
+            <span><strong>Full Watch app</strong> — Dashboard and per-pillar breakdown on your wrist</span>
+          </li>
+          <li>
+            <span class="watch-bullet">🔲</span>
+            <span><strong>4 complication families</strong> — Circular, rectangular, corner, and inline for any watch face</span>
+          </li>
+          <li>
+            <span class="watch-bullet">📲</span>
+            <span><strong>iOS Home Screen Widget</strong> — Bio age + delta on your lock screen or home screen</span>
+          </li>
+          <li>
+            <span class="watch-bullet">⚡</span>
+            <span><strong>Instant sync</strong> — Score appears on your watch and widget the moment you save an entry</span>
+          </li>
+        </ul>
+      </div>
+      <div class="watch-visual">
+        <div class="watch-badge-wrap">
+          <div class="watch-badge-icon">⌚</div>
+          <div class="watch-badge-label">Apple Watch</div>
+          <div class="watch-badge-sub">4 complication families</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Privacy badge -->
   <section class="privacy-section" id="privacy-badge">
     <div class="privacy-inner">
@@ -117,6 +236,10 @@
         <li>Never synced to iCloud, never uploaded to any server</li>
         <li>Apple Health access is read-only</li>
         <li>AI insights use only anonymous numeric scores — no names, no dates, no raw values</li>
+        <li>Biometric lock (Face ID / Touch ID) on every launch and app-background transition</li>
+        <li>Certificate-pinned HTTPS connection to the AI API — resistant to man-in-the-middle attacks</li>
+        <li>Privacy overlay shown whenever the app is in the background or app switcher</li>
+        <li>Zero third-party SDKs — native Apple frameworks only</li>
         <li>No ads, no tracking, no third-party analytics</li>
       </ul>
       <a href="privacy.html" class="btn-outline">Read full Privacy Policy →</a>
@@ -130,7 +253,7 @@
       <div class="footer-links">
         <a href="privacy.html">Privacy Policy</a>
         <a href="support.html">Support</a>
-        <a href="mailto:rajeshraya7@gmail.com">Contact</a>
+        <a href="mailto:support.bioage@gmail.com">Contact</a>
       </div>
       <p class="footer-copy">© 2026 BioAge. All rights reserved.</p>
     </div>
