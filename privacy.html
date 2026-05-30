@@ -17,6 +17,7 @@
       <div class="nav-links">
         <a href="index.html#features">Features</a>
         <a href="support.html">Support</a>
+        <a href="terms.html">Terms of Service</a>
         <a href="privacy.html">Privacy Policy</a>
       </div>
     </div>
@@ -24,40 +25,91 @@
 
   <main class="prose">
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: April 17, 2026</p>
+    <p class="updated">Effective Date: May 2026</p>
 
-    <h2>Overview</h2>
-    <p>BioAge ("the App") is an iOS application that estimates your biological age from health metrics and generates personalized longevity insights. Your privacy is a core design principle — all personal health data stays on your device.</p>
+    <h2>1. Data Collection</h2>
+    <p>BioAge collects only the personal health data you explicitly enter or import from Apple HealthKit. This includes sleep duration, heart rate variability (HRV), blood markers, stress levels, cardiovascular metrics, physical fitness test results (reaction time, grip strength, gait cadence), and profile information (name, date of birth, biological sex, height, weight).</p>
+    <p>BioAge does not collect advertising identifiers, precise location, contacts, camera images, microphone audio, or browsing history. No analytics SDKs or advertising frameworks are included in the app.</p>
 
-    <h2>Data Stored On-Device Only</h2>
-    <p>The following data is stored locally in your device's Keychain and SwiftData database and is <strong>never transmitted to any server</strong>:</p>
+    <h2>2. On-Device Storage &amp; Encryption</h2>
+    <p>All health data is stored exclusively on your device using Core Data with NSFileProtectionComplete — the data store is encrypted when the device is locked. Your personal profile (name, date of birth, biological sex, height, weight) is stored in the iOS Keychain with <code>kSecAttrAccessibleWhenUnlockedThisDeviceOnly</code> — it cannot be extracted in iCloud backups or transferred to another device.</p>
+    <p>No health data is synced to iCloud, sent to our servers, or shared with any third party except as described in Section 4.</p>
+
+    <h2>3. Automatic Daily Health Import</h2>
+    <p>If you enable Daily Auto-Import in <strong>Settings → Data</strong>, BioAge will access Apple HealthKit in the background approximately once per day to import your latest sleep and HRV data. This access is read-only and uses only the same data types already covered under Section 1.</p>
+    <p>This feature is <strong>opt-in and disabled by default</strong>. You can turn it off at any time in Settings → Data → Daily Auto-Import. Disabling it immediately cancels all pending background fetches.</p>
+    <p>Background access requires "Background App Refresh" to be enabled for BioAge in iOS Settings → General → Background App Refresh. iOS may limit or delay background refreshes based on battery state, network conditions, and usage patterns.</p>
+
+    <h2>4. Anthropic AI — Third-Party Data Sharing</h2>
+    <p>BioAge can generate personalised coaching insights using Anthropic's Claude AI. This feature is:</p>
     <ul>
-      <li>Personal profile (name, date of birth, biological sex, height, weight)</li>
-      <li>Health goals</li>
-      <li>Health snapshots (sleep, HRV, blood markers, cardiovascular metrics, stress levels)</li>
-      <li>Biological age scores and history</li>
+      <li><strong>Entirely opt-in</strong> — disabled by default</li>
+      <li>Gated behind two explicit consent steps</li>
+      <li>Revocable at any time in <strong>Settings → Privacy → AI Insights</strong></li>
+    </ul>
+    <p>When AI Insights is enabled, BioAge sends <strong>only</strong> the following anonymous numeric data to Anthropic. No names, dates of birth, email addresses, raw lab values, or device identifiers are ever included.</p>
+    <ul>
+      <li>Estimated biological age and chronological age (years, numeric)</li>
+      <li>Delta (biological age minus chronological age)</li>
+      <li>Sleep: pillar age-delta, duration (hours), quality score (1–10), deep/REM percentages, bedtime and wake time (HH:MM only — no date)</li>
+      <li>HRV: pillar age-delta, RMSSD value (milliseconds)</li>
+      <li>Blood markers: pillar age-delta only — no individual lab values or marker names</li>
+      <li>Stress: pillar age-delta, level score (1–10)</li>
+      <li>Cardiovascular: pillar age-delta, resting heart rate (BPM)</li>
+      <li>Reaction time: pillar age-delta, median response time (milliseconds)</li>
+      <li>Gait: pillar age-delta, cadence (steps per minute)</li>
+      <li>Your selected health goals (chosen from a fixed list of 5 options)</li>
+    </ul>
+    <p>You can view the exact data schema in <strong>Settings → Privacy → "What we send to AI"</strong>.</p>
+    <p>Anthropic's privacy policy is available at <a href="https://anthropic.com/privacy" target="_blank" rel="noopener">anthropic.com/privacy</a>. Anthropic does not use API data to train models without explicit consent.</p>
+
+    <h2>5. Technical Security Measures</h2>
+    <p>BioAge implements multiple layers of security for all outbound communications:</p>
+    <ul>
+      <li><strong>Certificate pinning</strong> — all connections to the Anthropic API are pinned to the leaf certificate SHA-256 fingerprint. A man-in-the-middle proxy cannot intercept requests even if a rogue root CA is installed on the device.</li>
+      <li><strong>Data residency guard</strong> — a runtime check blocks any payload containing an ISO 8601 timestamp before it leaves the device. Raw timestamps (which could be used to reconstruct your activity patterns) are stripped at the API boundary.</li>
+      <li><strong>Prompt sanitisation layer</strong> — user-generated strings are sanitised before being included in any outbound prompt.</li>
+      <li><strong>Hardened transport</strong> — all API traffic uses TLS 1.2+ with certificate pinning. No plain HTTP connections are permitted.</li>
     </ul>
 
-    <h2>Data Sent Off-Device</h2>
-    <p>When you request an AI insight, <strong>anonymous numeric scores</strong> (e.g., sleep score: 7.2, HRV score: 6.8) are sent to the Anthropic API to generate a personalized coaching insight. No personal identifiers, names, dates of birth, or raw health values are included in this request.</p>
+    <h2>6. Data Exports</h2>
+    <p>BioAge allows you to export your health history as JSON or CSV via <strong>Settings → Privacy → Export My Data</strong>. Exported files contain your full health history including profile information.</p>
+    <p>Exports are created in your device's app sandbox temporary directory and are only accessible through the iOS share sheet. No export is uploaded to any server. You are responsible for protecting exported files once they leave the app via the share sheet.</p>
 
-    <h2>Apple Health Integration</h2>
-    <p>The App requests read-only access to Apple Health data (sleep analysis, HRV, resting heart rate, blood oxygen). This data is processed on-device only and is never uploaded to any server.</p>
+    <h2>7. Widget &amp; Apple Watch Sharing</h2>
+    <p>If you use the BioAge widget or Apple Watch app, your most recent biological age score and delta are written to an App Group shared container to make them available to those extensions. Only the latest numeric score is written — no full health history, blood values, or profile information is stored in the App Group container.</p>
 
-    <h2>Data Sharing</h2>
-    <p>We do not sell, trade, or share your personal data with third parties. The only external service used is the Anthropic API, which receives anonymous numeric scores as described above.</p>
+    <h2>8. Third-Party Services</h2>
+    <p>BioAge uses:</p>
+    <ul>
+      <li><strong>Apple HealthKit</strong> — read-only access only; no data is written back to HealthKit</li>
+      <li><strong>Apple Core Motion</strong> — on-device step counting and cadence measurement for the gait test; data is not stored beyond the test session</li>
+      <li><strong>Apple VisionKit / PDFKit</strong> — on-device OCR and PDF text extraction for lab report scanning; files are processed locally and never uploaded</li>
+      <li><strong>Anthropic Claude API</strong> — for AI insights only; see Section 4 for exact data shared</li>
+    </ul>
+    <p>No advertising networks, analytics SDKs, crash-reporting services, or other third parties have access to your health data.</p>
 
-    <h2>Data Retention</h2>
-    <p>All data is stored on your device. Deleting the App removes all associated data. We have no copies of your data.</p>
+    <h2>9. Data Deletion</h2>
+    <p>You can permanently delete all your data at any time via <strong>Settings → Privacy → "Delete All My Data"</strong>. This removes your profile from the Keychain, all health snapshots from Core Data, and all cached scores from App Group storage. This action is irreversible.</p>
+    <p>Uninstalling the app removes Core Data storage. Your Keychain data may persist after uninstall depending on iOS version; use "Delete All My Data" before uninstalling for a complete wipe.</p>
 
-    <h2>Children's Privacy</h2>
-    <p>This App is not directed to children under the age of 13 and we do not knowingly collect data from children.</p>
+    <h2>10. Data Retention</h2>
+    <p>Your health data is retained on your device for as long as you use the app. BioAge does not retain any copies of your data on external servers.</p>
+    <p>Data sent to Anthropic for AI insight generation is subject to Anthropic's data retention policy (<a href="https://anthropic.com/privacy" target="_blank" rel="noopener">anthropic.com/privacy</a>). BioAge does not control Anthropic's retention of prompt data submitted via the API.</p>
 
-    <h2>Changes to This Policy</h2>
-    <p>We may update this policy from time to time. Continued use of the App after changes constitutes acceptance of the updated policy. We will update the "Last updated" date at the top of this page.</p>
+    <h2>11. Not a Medical Device</h2>
+    <p>BioAge is a personal wellness tracking app. It is not a medical device, is not FDA-cleared or CE-marked, and does not provide medical diagnoses, clinical assessments, or treatment recommendations. Biological age estimates are informational only and do not substitute for advice from a qualified healthcare provider.</p>
 
-    <h2>Contact</h2>
-    <p>If you have questions about this privacy policy, contact us at: <a href="mailto:support.bioage@gmail.com">support.bioage@gmail.com</a></p>
+    <h2>12. Children's Privacy</h2>
+    <p>BioAge is rated 9+ on the App Store. Because the app collects personal health data, users under the age of 13 (or the applicable age of digital consent in their country) must have a parent or guardian review this Privacy Policy and provide consent before using the app.</p>
+    <p>If you are a parent or guardian and believe your child under 13 has provided health data without your consent, please use <strong>Settings → Privacy → "Delete All My Data"</strong> to remove all stored information, then delete the app.</p>
+    <p>BioAge does not knowingly collect health data from children under 13 without parental consent.</p>
+
+    <h2>13. Changes to This Policy</h2>
+    <p>We may update this privacy policy from time to time. Material changes will be notified in-app. The effective date at the top of this policy reflects when the current version took effect. Continued use of BioAge after a policy update constitutes acceptance of the revised policy.</p>
+
+    <h2>14. Contact</h2>
+    <p>If you have questions about this privacy policy or your data, contact us at: <a href="mailto:support.bioage@gmail.com">support.bioage@gmail.com</a></p>
   </main>
 
   <footer class="footer">
@@ -65,6 +117,7 @@
       <a href="index.html" class="nav-logo">BioAge</a>
       <div class="footer-links">
         <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
         <a href="support.html">Support</a>
         <a href="mailto:support.bioage@gmail.com">Contact</a>
       </div>

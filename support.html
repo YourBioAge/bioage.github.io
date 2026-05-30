@@ -17,6 +17,7 @@
       <div class="nav-links">
         <a href="index.html#features">Features</a>
         <a href="support.html">Support</a>
+        <a href="terms.html">Terms of Service</a>
         <a href="privacy.html">Privacy Policy</a>
       </div>
     </div>
@@ -35,7 +36,7 @@
     <div class="faq">
       <div class="faq-item">
         <h3>How is my biological age calculated?</h3>
-        <p>BioAge uses a 5-pillar algorithm computed entirely on your device: Sleep (25%), HRV (25%), Blood Markers (35%), Stress (15%), and Cardiovascular (bonus). Each pillar compares your values to science-based reference ranges and computes a year delta. The pillars are combined into a single biological age estimate.</p>
+        <p>BioAge uses an 8-pillar algorithm computed entirely on your device. The core pillars are Blood Markers (35%), Sleep (25%), HRV (25%), and Stress (15%). Bonus pillars — Cardiovascular, Reaction Time (12%), Grip Strength (9%), and Gait (2%) — refine the score when data is available. Each pillar compares your values to science-based reference ranges and computes a year delta. Missing pillars are excluded and weights are redistributed proportionally, so the score always reflects the data you actually have.</p>
       </div>
 
       <div class="faq-item">
@@ -59,8 +60,18 @@
       </div>
 
       <div class="faq-item">
+        <h3>What is Daily Auto-Import?</h3>
+        <p>Daily Auto-Import (Settings → Data → Daily Auto-Import) lets BioAge access Apple HealthKit once per day in the background to pull your latest sleep and HRV data automatically — no manual import needed. It is opt-in and disabled by default. Requires "Background App Refresh" to be enabled for BioAge in iOS Settings → General → Background App Refresh. iOS may delay or skip background refreshes based on battery and network conditions.</p>
+      </div>
+
+      <div class="faq-item">
         <h3>How do I delete my data?</h3>
-        <p>Deleting BioAge from your device removes all stored data permanently. There is no server-side data to delete because we never store it.</p>
+        <p>Go to <strong>Settings → Privacy → "Delete All My Data"</strong> to permanently remove your profile, all health snapshots, and all cached scores from the device. This action is irreversible. Note: simply deleting the app removes Core Data storage but may leave Keychain data behind on some iOS versions — use the in-app delete option for a complete wipe.</p>
+      </div>
+
+      <div class="faq-item">
+        <h3>Can I export my health data?</h3>
+        <p>Yes. Go to <strong>Settings → Privacy → Export My Data</strong> to download your full health history as JSON or CSV. The export is generated on your device and shared through the iOS share sheet — nothing is uploaded to any server.</p>
       </div>
 
       <div class="faq-item">
@@ -78,6 +89,7 @@
       <a href="index.html" class="nav-logo">BioAge</a>
       <div class="footer-links">
         <a href="privacy.html">Privacy Policy</a>
+        <a href="terms.html">Terms of Service</a>
         <a href="support.html">Support</a>
         <a href="mailto:support.bioage@gmail.com">Contact</a>
       </div>
