@@ -9,6 +9,9 @@
 </head>
 <body>
 
+  <!-- WebGL animated background — fixed behind all page content -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
   <nav class="nav">
     <div class="nav-inner">
       <a href="#" class="nav-logo">BioAge</a>
@@ -24,73 +27,86 @@
   </nav>
 
   <!-- Hero -->
-  <section class="hero">
-    <div class="hero-text">
-      <h1>Your real age,<br>measured by science.</h1>
-      <p class="hero-sub">BioAge turns your health data into a single biological age score — and gives you AI-powered guidance to lower it.</p>
-      <a href="https://apps.apple.com/us/app/bioage/id6762235244" class="btn-appstore" target="_blank" rel="noopener">
-        <img src="assets/appstore-badge.svg" alt="Download on the App Store" />
-      </a>
+  <section class="hero" id="home">
+    <!-- Gradient overlay for text readability + section transition -->
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div class="hero-inner">
+      <div class="hero-text">
+        <div class="hero-eyebrow">Biological Age · Science-Backed</div>
+        <h1>Your real age,<br>measured by science.</h1>
+        <p class="hero-sub">BioAge turns your health data into a single biological age score — and gives you AI-powered guidance to lower it.</p>
+        <a href="https://apps.apple.com/us/app/bioage/id6762235244" class="btn-appstore" target="_blank" rel="noopener">
+          <img src="assets/appstore-badge.svg" alt="Download on the App Store" />
+        </a>
+      </div>
+      <div class="hero-phones">
+        <div class="hero-phones-glow" aria-hidden="true"></div>
+        <img src="assets/screenshots/screenshot_01.png" class="phone phone-main" alt="BioAge Dashboard" />
+        <img src="assets/screenshots/screenshot_02.png" class="phone phone-back" alt="BioAge Trends" />
+      </div>
     </div>
-    <div class="hero-phones">
-      <img src="assets/screenshots/screenshot_01.png" class="phone phone-main" alt="BioAge Dashboard" />
-      <img src="assets/screenshots/screenshot_02.png" class="phone phone-back" alt="BioAge Trends" />
+
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span></span>
     </div>
   </section>
 
   <!-- Features -->
   <section class="features" id="features">
-    <h2>Everything you need to understand how you're aging</h2>
-    <div class="features-grid">
+    <div class="features-inner">
+      <h2>Everything you need to understand how you're aging</h2>
+      <div class="features-grid">
 
-      <div class="feature-card">
-        <div class="feature-icon">🧬</div>
-        <h3>8-Pillar Biological Age</h3>
-        <p>Sleep, HRV, blood markers, cardiovascular health, stress, reaction time, grip strength, and gait — each scored and weighted into a single biological age estimate.</p>
+        <div class="feature-card">
+          <div class="feature-icon">🧬</div>
+          <h3>8-Pillar Biological Age</h3>
+          <p>Sleep, HRV, blood markers, cardiovascular health, stress, reaction time, grip strength, and gait — each scored and weighted into a single biological age estimate.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">❤️</div>
+          <h3>Apple Health Integration</h3>
+          <p>Import sleep, HRV, and resting heart rate directly from Apple Health. Bring in up to 1 year of historical data in a single tap.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">✨</div>
+          <h3>AI Longevity Insights</h3>
+          <p>Claude AI generates plain-language coaching insights personalized to your health goals — streamed word-by-word in real time.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🏃</div>
+          <h3>Physical Performance Tests</h3>
+          <p>Measure reaction time, grip strength, and gait cadence using your iPhone sensors. These physical biomarkers contribute to a more complete biological age picture.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Trends &amp; History</h3>
+          <p>Track your biological age over time with line charts, per-category breakdowns, and streak tracking.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔬</div>
+          <h3>Lab Report Scanner</h3>
+          <p>Scan lab documents with your camera and auto-fill blood marker values via OCR — no manual typing needed. Low-confidence reads are flagged for review.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">⌚</div>
+          <h3>Apple Watch + Widget</h3>
+          <p>View your biological age and delta from your wrist or home screen. Supports all 4 Watch complication families and an iOS Home Screen Widget.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Privacy &amp; Security First</h3>
+          <p>All data stays on-device in the iOS Keychain. Biometric lock (Face ID / Touch ID) on every launch. Zero third-party SDKs — native Apple frameworks only.</p>
+        </div>
+
       </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">❤️</div>
-        <h3>Apple Health Integration</h3>
-        <p>Import sleep, HRV, and resting heart rate directly from Apple Health. Bring in up to 1 year of historical data in a single tap.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">✨</div>
-        <h3>AI Longevity Insights</h3>
-        <p>Claude AI generates plain-language coaching insights personalized to your health goals — streamed word-by-word in real time.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">🏃</div>
-        <h3>Physical Performance Tests</h3>
-        <p>Measure reaction time, grip strength, and gait cadence using your iPhone sensors. These physical biomarkers contribute to a more complete biological age picture.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">📊</div>
-        <h3>Trends &amp; History</h3>
-        <p>Track your biological age over time with line charts, per-category breakdowns, and streak tracking.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">🔬</div>
-        <h3>Lab Report Scanner</h3>
-        <p>Scan lab documents with your camera and auto-fill blood marker values via OCR — no manual typing needed. Low-confidence reads are flagged for review.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">⌚</div>
-        <h3>Apple Watch + Widget</h3>
-        <p>View your biological age and delta from your wrist or home screen. Supports all 4 Watch complication families and an iOS Home Screen Widget.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">🔒</div>
-        <h3>Privacy &amp; Security First</h3>
-        <p>All data stays on-device in the iOS Keychain. Biometric lock (Face ID / Touch ID) on every launch. Zero third-party SDKs — native Apple frameworks only.</p>
-      </div>
-
     </div>
   </section>
 
@@ -218,6 +234,7 @@
       </div>
       <div class="watch-visual">
         <div class="watch-badge-wrap">
+          <div class="watch-badge-ring" aria-hidden="true"></div>
           <div class="watch-badge-icon">⌚</div>
           <div class="watch-badge-label">Apple Watch</div>
           <div class="watch-badge-sub">4 complication families</div>
@@ -258,6 +275,8 @@
       <p class="footer-copy">© 2026 BioAge. All rights reserved.</p>
     </div>
   </footer>
+
+  <script src="assets/shader.js"></script>
 
 </body>
 </html>
