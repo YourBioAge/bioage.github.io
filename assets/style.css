@@ -593,7 +593,13 @@ a:hover { text-decoration: underline; }
 /* Orbital nodes */
 .orb-node {
   position: absolute;
-  transform: translate(-50%, -50%);
+  /*
+   * Translate X by -50% to centre horizontally.
+   * Translate Y by -22px = half of the 44px bubble height,
+   * so the BUBBLE CENTRE sits exactly on the orbit track —
+   * the label hangs below/outside the circle naturally.
+   */
+  transform: translate(-50%, -22px);
   display: flex;
   flex-direction: column;
   align-items: center;
