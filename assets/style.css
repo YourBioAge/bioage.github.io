@@ -513,6 +513,256 @@ a:hover { text-decoration: underline; }
   line-height: 1.65;
 }
 
+/* ─── Radial Orbital Timeline ───────────────────────────── */
+.orbital-wrap {
+  display: flex;
+  justify-content: center;
+  margin: 48px 0 12px;
+  /* scale down on smaller screens via CSS var */
+  --orb-scale: 1;
+  transform: scale(var(--orb-scale));
+  transform-origin: center top;
+}
+
+.orbital-container {
+  position: relative;
+  width:  560px;
+  height: 560px;
+  flex-shrink: 0;
+}
+
+/* Orbit track ring */
+.orb-ring {
+  position: absolute;
+  width:  400px;   /* diameter = RADIUS * 2 */
+  height: 400px;
+  top:  50%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+}
+
+/* Centre sphere */
+.orb-centre {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width:  72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.orb-ping {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 229, 200, 0.25);
+  animation: orbPing 2.4s ease-out infinite;
+}
+.orb-ping-1 { width: 88px;  height: 88px;  animation-delay: 0s; }
+.orb-ping-2 { width: 108px; height: 108px; animation-delay: 1.2s; }
+
+@keyframes orbPing {
+  0%   { opacity: 0.7; transform: scale(0.85); }
+  100% { opacity: 0;   transform: scale(1.15); }
+}
+
+.orb-core {
+  width:  64px;
+  height: 64px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #00E5CC, #0066cc, #0D1B2A);
+  box-shadow: 0 0 24px rgba(0, 229, 200, 0.4), 0 0 48px rgba(0, 102, 204, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.orb-core-text {
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+/* Orbital nodes */
+.orb-node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition: opacity 0.3s;
+}
+
+.orb-node-bubble {
+  width:  44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  transition: transform 0.25s, border-color 0.25s, background 0.25s,
+              box-shadow 0.25s;
+}
+
+.orb-node-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  pointer-events: none;
+}
+
+.orb-node-name {
+  font-size: 0.62rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.75);
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+}
+
+.orb-node-wt {
+  font-size: 0.56rem;
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: 0.03em;
+}
+
+/* Active node */
+.orb-node--active .orb-node-bubble {
+  transform: scale(1.4);
+  background: #fff;
+  border-color: #fff;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+.orb-node--active .orb-node-name { color: #fff; }
+
+/* Related (connected) nodes */
+.orb-node--related .orb-node-bubble {
+  border-color: var(--teal);
+  background: rgba(0, 229, 200, 0.12);
+  animation: nodeRelatedPulse 1.4s ease-in-out infinite;
+}
+.orb-node--related .orb-node-name { color: var(--teal); }
+
+@keyframes nodeRelatedPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 229, 200, 0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(0, 229, 200, 0);  }
+}
+
+/* Info card — centred over the orbit */
+.orb-card {
+  position: absolute;
+  top:  50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  background: rgba(5, 12, 22, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 229, 200, 0.2);
+  border-radius: 16px;
+  padding: 20px 18px 16px;
+  z-index: 200;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255,255,255,0.04);
+  animation: cardIn 0.2s ease;
+}
+
+@keyframes cardIn {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(0.92); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+.orb-card-close {
+  position: absolute;
+  top: 10px; right: 12px;
+  background: none;
+  border: none;
+  color: rgba(255,255,255,0.4);
+  font-size: 0.8rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 2px 4px;
+  transition: color 0.2s;
+}
+.orb-card-close:hover { color: #fff; }
+
+.orb-card-icon  { font-size: 2rem; line-height: 1; margin-bottom: 4px; }
+
+.orb-card-weight {
+  display: inline-block;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--teal);
+  background: rgba(0, 229, 200, 0.1);
+  border: 1px solid rgba(0, 229, 200, 0.25);
+  border-radius: 99px;
+  padding: 2px 8px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+
+.orb-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 8px;
+}
+
+.orb-card-desc {
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.55;
+  margin: 0 0 12px;
+}
+
+.orb-card-related {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+}
+
+.orb-related-label {
+  font-size: 0.58rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  width: 100%;
+}
+
+.orb-tag {
+  font-size: 0.6rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 99px;
+  padding: 2px 8px;
+  color: rgba(255, 255, 255, 0.6);
+  white-space: nowrap;
+}
+
+/* Hint text below orbital */
+.orbital-hint {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin: 0 0 8px;
+  letter-spacing: 0.03em;
+}
+
 /* ─── Apple Watch Section ───────────────────────────────── */
 .watch-section {
   background: var(--sec-c);
@@ -631,6 +881,236 @@ a:hover { text-decoration: underline; }
   z-index: 1;
 }
 
+/* ═══════════════════════════════════════════════════════════
+   PREMIUM ANIMATION LAYER
+   Ported from 21st.dev components (magicui, aceternity) to
+   pure vanilla CSS — no Tailwind, no Framer Motion.
+═══════════════════════════════════════════════════════════ */
+
+/* ── 1. Eyebrow pill shine sweep ─────────────────────────── */
+.hero-eyebrow {
+  position: relative;
+  overflow: hidden;
+}
+.eyebrow-dot {
+  display: inline-block;
+  width:  6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 8px var(--teal);
+  margin-right: 6px;
+  vertical-align: middle;
+  animation: dotPulse 2s ease-in-out infinite;
+}
+@keyframes dotPulse {
+  0%, 100% { opacity: 1;   transform: scale(1);    }
+  50%       { opacity: 0.5; transform: scale(0.75); }
+}
+.hero-eyebrow::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -80%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.35), transparent);
+  animation: eyebrowShine 5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes eyebrowShine {
+  0%, 35%  { left: -80%;  }
+  65%, 100% { left: 140%; }
+}
+
+/* ── 2. Word rotate (hero h1) ────────────────────────────── */
+#hero-word-rotate {
+  display: inline-block;
+  /* Animated gradient: teal → violet → amber */
+  background: linear-gradient(90deg, #00E5CC, #a78bfa, #FFB347, #00E5CC);
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientFlow 6s linear infinite;
+}
+@keyframes gradientFlow {
+  to { background-position: -300% 0; }
+}
+.word-exit {
+  animation: wordSlideOut 0.35s ease forwards !important;
+}
+.word-enter {
+  animation: wordSlideIn 0.45s ease forwards !important;
+}
+@keyframes wordSlideOut {
+  from { opacity: 1; transform: translateY(0);    }
+  to   { opacity: 0; transform: translateY(24px); }
+}
+@keyframes wordSlideIn {
+  from { opacity: 0; transform: translateY(-24px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+/* Gradient text utility */
+.gradient-text {
+  background: linear-gradient(90deg, #00E5CC, #a78bfa, #FFB347);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientFlow 6s linear infinite;
+}
+
+/* ── 3. Stats strip ──────────────────────────────────────── */
+.stats-strip {
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top:    1px solid rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 40px 24px;
+  position: relative;
+  z-index: 1;
+}
+.stats-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+}
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+.stat-num {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 900;
+  letter-spacing: -2px;
+  line-height: 1;
+  /* Gradient number colour */
+  background: linear-gradient(135deg, #fff 30%, rgba(255,255,255,0.55));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-variant-numeric: tabular-nums;
+}
+.stat-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.4;
+}
+.stat-divider {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.12), transparent);
+  flex-shrink: 0;
+}
+
+/* ── 4. Blur-fade scroll reveal ──────────────────────────── */
+.blur-fade {
+  opacity: 0;
+  transform: translateY(20px);
+  filter: blur(8px);
+  transition: opacity 0.65s ease, transform 0.65s ease, filter 0.65s ease;
+  will-change: opacity, transform, filter;
+}
+.blur-fade--in {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+}
+
+/* ── 5. Shine border on feature cards (CSS @property) ───── */
+@property --shine-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+.shine-card {
+  position: relative;
+  isolation: isolate;
+}
+.shine-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--shine-angle),
+    transparent      0deg,
+    rgba(0,229,200,0.6) 45deg,
+    rgba(167,139,250,0.5) 90deg,
+    transparent      135deg
+  );
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: -1;
+  animation: shineSpin 3s linear infinite paused;
+}
+.shine-card:hover::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+@keyframes shineSpin {
+  to { --shine-angle: 360deg; }
+}
+/* Inner fill so the card face stays opaque */
+.shine-card::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: calc(var(--card-radius, 16px) - 1px);
+  background: inherit;
+  z-index: -1;
+}
+
+/* ── 6. App Store button glow pulse ─────────────────────── */
+.btn-appstore {
+  position: relative;
+}
+.btn-appstore::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 14px;
+  background: transparent;
+  box-shadow: 0 0 0 0 rgba(0, 229, 200, 0.4);
+  animation: ctaGlow 3s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes ctaGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 229, 200, 0.0); }
+  50%       { box-shadow: 0 0 24px 6px rgba(0, 229, 200, 0.22); }
+}
+
+/* ── 7. Screenshot figure hover lift ────────────────────── */
+.screenshots-row figure {
+  cursor: default;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              filter 0.3s ease;
+  border-radius: 16px;
+}
+.screenshots-row figure:hover {
+  transform: translateY(-10px) scale(1.04);
+  filter: drop-shadow(0 20px 40px rgba(0, 229, 200, 0.18));
+}
+
+/* ── 8. Nav scroll blur (glassmorphism on scroll) ───────── */
+.nav--scrolled {
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
 /* ─── Responsive ───────────────────────────────────────── */
 @media (max-width: 768px) {
   .hero-inner {
@@ -673,10 +1153,21 @@ a:hover { text-decoration: underline; }
     padding: 32px 24px 48px;
     border-radius: 14px;
   }
+
+  /* Stats strip stacks vertically */
+  .stats-inner {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 28px;
+  }
+  .stat-divider { display: none; }
+  .stat-item    { flex: 0 0 40%; }
+
+  /* Scale the orbital down so it fits the viewport */
+  .orbital-wrap { --orb-scale: 0.62; margin-bottom: calc(560px * (0.62 - 1) + 12px); }
 }
 
 @media (max-width: 480px) {
-  .pillars-grid {
-    grid-template-columns: 1fr;
-  }
+  .stat-item { flex: 0 0 100%; }
+  .orbital-wrap { --orb-scale: 0.50; margin-bottom: calc(560px * (0.50 - 1) + 12px); }
 }

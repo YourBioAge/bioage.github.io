@@ -34,8 +34,11 @@
 
     <div class="hero-inner">
       <div class="hero-text">
-        <div class="hero-eyebrow">Biological Age · Science-Backed</div>
-        <h1>Your real age,<br>measured by science.</h1>
+        <div class="hero-eyebrow">
+          <span class="eyebrow-dot" aria-hidden="true"></span>
+          Biological Age · Science-Backed
+        </div>
+        <h1>Your real age,<br><span id="hero-word-rotate">measured by science</span>.</h1>
         <p class="hero-sub">BioAge turns your health data into a single biological age score — and gives you AI-powered guidance to lower it.</p>
         <a href="https://apps.apple.com/us/app/bioage/id6762235244" class="btn-appstore" target="_blank" rel="noopener">
           <img src="assets/appstore-badge.svg" alt="Download on the App Store" />
@@ -53,55 +56,80 @@
     </div>
   </section>
 
+  <!-- Stats strip -->
+  <section class="stats-strip" aria-label="Key statistics">
+    <div class="stats-inner">
+      <div class="stat-item">
+        <span class="stat-num" data-target="8">0</span>
+        <span class="stat-label">Biological<br>Pillars</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="15">0</span>
+        <span class="stat-label">Blood Markers<br>Tracked</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="365">0</span>
+        <span class="stat-label">Days of<br>History</span>
+      </div>
+      <div class="stat-divider" aria-hidden="true"></div>
+      <div class="stat-item">
+        <span class="stat-num" data-target="100" data-suffix="%">0%</span>
+        <span class="stat-label">On-Device<br>Private</span>
+      </div>
+    </div>
+  </section>
+
   <!-- Features -->
   <section class="features" id="features">
     <div class="features-inner">
-      <h2>Everything you need to understand how you're aging</h2>
+      <h2 class="blur-fade">Everything you need to understand how you're aging</h2>
       <div class="features-grid">
 
-        <div class="feature-card">
+        <div class="feature-card shine-card">
           <div class="feature-icon">🧬</div>
           <h3>8-Pillar Biological Age</h3>
           <p>Sleep, HRV, blood markers, cardiovascular health, stress, reaction time, grip strength, and gait — each scored and weighted into a single biological age estimate.</p>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card shine-card">
           <div class="feature-icon">❤️</div>
           <h3>Apple Health Integration</h3>
           <p>Import sleep, HRV, and resting heart rate directly from Apple Health. Bring in up to 1 year of historical data in a single tap.</p>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card shine-card">
           <div class="feature-icon">✨</div>
           <h3>AI Longevity Insights</h3>
           <p>Claude AI generates plain-language coaching insights personalized to your health goals — streamed word-by-word in real time.</p>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card shine-card">
           <div class="feature-icon">🏃</div>
           <h3>Physical Performance Tests</h3>
           <p>Measure reaction time, grip strength, and gait cadence using your iPhone sensors. These physical biomarkers contribute to a more complete biological age picture.</p>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card shine-card">
           <div class="feature-icon">📊</div>
           <h3>Trends &amp; History</h3>
           <p>Track your biological age over time with line charts, per-category breakdowns, and streak tracking.</p>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card shine-card">
           <div class="feature-icon">🔬</div>
           <h3>Lab Report Scanner</h3>
           <p>Scan lab documents with your camera and auto-fill blood marker values via OCR — no manual typing needed. Low-confidence reads are flagged for review.</p>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card shine-card">
           <div class="feature-icon">⌚</div>
           <h3>Apple Watch + Widget</h3>
           <p>View your biological age and delta from your wrist or home screen. Supports all 4 Watch complication families and an iOS Home Screen Widget.</p>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card shine-card">
           <div class="feature-icon">🔒</div>
           <h3>Privacy &amp; Security First</h3>
           <p>All data stays on-device in the iOS Keychain. Biometric lock (Face ID / Touch ID) on every launch. Zero third-party SDKs — native Apple frameworks only.</p>
@@ -114,75 +142,21 @@
   <!-- How It Works -->
   <section class="how-it-works" id="how-it-works">
     <div class="how-inner">
-      <h2>How BioAge calculates your score</h2>
-      <p class="how-sub">Eight evidence-based pillars are scored independently and combined into a single biological age estimate. Missing pillars are gracefully excluded — the score always reflects the data you actually have.</p>
+      <h2 class="blur-fade">How BioAge calculates your <span class="gradient-text">score</span></h2>
+      <p class="how-sub blur-fade">Eight evidence-based pillars are scored independently and combined into a single biological age estimate. Missing pillars are gracefully excluded — the score always reflects the data you actually have.</p>
 
-      <div class="pillars-grid">
-
-        <div class="pillar-card">
-          <div class="pillar-weight">35%</div>
-          <div class="pillar-icon">🩸</div>
-          <h4>Blood Markers</h4>
-          <p>15 supported markers — glucose, HbA1c, CRP, cholesterol, and more — compared to evidence-based optimal ranges.</p>
-        </div>
-
-        <div class="pillar-card">
-          <div class="pillar-weight">25%</div>
-          <div class="pillar-icon">😴</div>
-          <h4>Sleep</h4>
-          <p>Duration and quality scored using a 7–9h optimal window. Deep sleep and REM percentages contribute bonus points.</p>
-        </div>
-
-        <div class="pillar-card">
-          <div class="pillar-weight">25%</div>
-          <div class="pillar-icon">💓</div>
-          <h4>HRV</h4>
-          <p>Your RMSSD compared to age- and sex-matched population norms (Nunan et al.). Higher HRV = biologically younger.</p>
-        </div>
-
-        <div class="pillar-card">
-          <div class="pillar-weight">15%</div>
-          <div class="pillar-icon">🧘</div>
-          <h4>Stress</h4>
-          <p>Levels 1–4 are protective. Chronic high stress (5–10) adds years to your score. Self-reported and factored directly in.</p>
-        </div>
-
-        <div class="pillar-card pillar-card-bonus">
-          <div class="pillar-weight pillar-weight-bonus">bonus</div>
-          <div class="pillar-icon">🫀</div>
-          <h4>Cardiovascular</h4>
-          <p>Resting heart rate compared to age norms. Blood pressure optionally provides additional refinement.</p>
-        </div>
-
-        <div class="pillar-card pillar-card-bonus">
-          <div class="pillar-weight pillar-weight-bonus">12%</div>
-          <div class="pillar-icon">⚡</div>
-          <h4>Reaction Time</h4>
-          <p>Measured via the iPhone screen. Compared against Welford age-adjusted norms — a sensitive marker of neural aging.</p>
-        </div>
-
-        <div class="pillar-card pillar-card-bonus">
-          <div class="pillar-weight pillar-weight-bonus">9%</div>
-          <div class="pillar-icon">✊</div>
-          <h4>Grip Strength</h4>
-          <p>Peak force, stability, and duration — each weighted. Grip strength is one of the strongest predictors of all-cause mortality.</p>
-        </div>
-
-        <div class="pillar-card pillar-card-bonus">
-          <div class="pillar-weight pillar-weight-bonus">2%</div>
-          <div class="pillar-icon">🚶</div>
-          <h4>Gait</h4>
-          <p>Step cadence and regularity measured via the accelerometer. Optimal cadence is 100–130 steps per minute.</p>
-        </div>
-
+      <!-- Radial orbital timeline — 8 pillars orbit the BioAge score -->
+      <div class="orbital-wrap">
+        <div class="orbital-container" id="orbital-timeline" aria-label="BioAge 8-pillar orbital diagram"></div>
       </div>
+      <p class="orbital-hint">Tap any pillar to learn more</p>
       <p class="how-footnote">Weights are redistributed proportionally when pillars are absent. Confidence is reported as the fraction of pillars present — so you always know how complete your score is.</p>
     </div>
   </section>
 
   <!-- Screenshots -->
   <section class="screenshots">
-    <h2>See it in action</h2>
+    <h2 class="blur-fade">See it in action</h2>
     <div class="screenshots-row">
       <figure>
         <img src="assets/screenshots/screenshot_05.png" alt="BioAge onboarding" />
@@ -212,7 +186,7 @@
     <div class="watch-inner">
       <div class="watch-text">
         <div class="watch-eyebrow">Apple Watch &amp; Widgets</div>
-        <h2>Your biological age,<br>always within reach.</h2>
+        <h2 class="blur-fade">Your biological age,<br>always within reach.</h2>
         <p>The BioAge Watch app syncs automatically whenever you log a new entry. Check your bio age and delta at a glance — from your wrist or your home screen.</p>
         <ul class="watch-list">
           <li>
@@ -248,7 +222,7 @@
   <section class="privacy-section" id="privacy-badge">
     <div class="privacy-inner">
       <div class="privacy-icon">🔐</div>
-      <h2>Your health data is yours</h2>
+      <h2 class="blur-fade">Your health data is <span class="gradient-text">yours</span></h2>
       <ul class="privacy-list">
         <li>All personal data stored on-device in the iOS Keychain</li>
         <li>Never synced to iCloud, never uploaded to any server</li>
@@ -279,6 +253,8 @@
   </footer>
 
   <script src="assets/shader.js"></script>
+  <script src="assets/orbital.js"></script>
+  <script src="assets/animations.js"></script>
 
 </body>
 </html>
