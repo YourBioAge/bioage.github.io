@@ -1,11 +1,11 @@
 /**
- * BioAge WebGL hero shader
- * Adapted from aliimam's web-gl-shader (21st.dev).
- * Pure WebGL — no external dependencies.
- * Colors: navy #0D1B2A · teal #00E5CC · amber #FFB347
+ * BioAge WebGL background shader
+ * Ported from aliimam's web-gl-shader (21st.dev) — pure WebGL, no Three.js.
  *
- * The canvas is position:fixed at z-index:-1, so it renders
- * behind every page's content automatically.
+ * Original uniforms preserved exactly:
+ *   resolution · time · xScale · yScale · distortion
+ *
+ * The canvas is position:fixed at z-index:-1, rendering behind all page content.
  */
 (function () {
   'use strict';
@@ -28,40 +28,37 @@
     return s;
   }
 
-  // ── Vertex shader — covers full clip space ────────────────
+  // ── Vertex shader ─────────────────────────────────────────
   var vert = mkShader(gl.VERTEX_SHADER, [
-    'attribute vec2 a_pos;',
-    'void main() { gl_Position = vec4(a_pos, 0.0, 1.0); }'
+    'attribute vec3 position;',
+    'void main() { gl_Position = vec4(position, 1.0); }'
   ].join('\n'));
 
-  // ── Fragment shader — BioAge-branded chromatic wave ───────
-  // Three sine-wave lines with chromatic-aberration-style x-offset.
-  //   Wave 1 → teal  #00E5CC  (0.000, 0.898, 0.800)
-  //   Wave 2 → amber #FFB347  (1.000, 0.702, 0.278)
-  //   Wave 3 → white highlight (subtle depth)
-  //   Background: navy #0D1B2A (0.051, 0.106, 0.165)
+  // ── Fragment shader (aliimam original) ────────────────────
+  // Single chromatic-aberration sine wave split into R / G / B channels.
+  // Black background, bright RGB line rendered at the screen centre.
   var frag = mkShader(gl.FRAGMENT_SHADER, [
     'precision highp float;',
-    'uniform vec2  u_res;',
-    'uniform float u_t;',
+    'uniform vec2  resolution;',
+    'uniform float time;',
+    'uniform float xScale;',
+    'uniform float yScale;',
+    'uniform float distortion;',
     '',
     'void main() {',
-    '  vec2 p = (gl_FragCoord.xy * 2.0 - u_res) / min(u_res.x, u_res.y);',
+    '  vec2 p = (gl_FragCoord.xy * 2.0 - resolution) / min(resolution.x, resolution.y);',
     '',
-    '  float d  = length(p) * 0.07;',
-    '  float x1 = p.x * (1.0 + d);',
-    '  float x2 = p.x;',
-    '  float x3 = p.x * (1.0 - d);',
+    '  float d  = length(p) * distortion;',
     '',
-    '  float w1 = 0.042 / abs(p.y        + sin((x1 + u_t * 0.62) * 1.45) * 0.38);',
-    '  float w2 = 0.024 / abs(p.y + 0.22 + sin((x3 + u_t * 0.48) * 1.10) * 0.30);',
-    '  float w3 = 0.014 / abs(p.y - 0.30 + sin((x2 + u_t * 0.38) * 1.72) * 0.20);',
+    '  float rx = p.x * (1.0 + d);',
+    '  float gx = p.x;',
+    '  float bx = p.x * (1.0 - d);',
     '',
-    '  float r = 0.051 + 0.000*w1 + 1.000*w2 + 0.85*w3;',
-    '  float g = 0.106 + 0.898*w1 + 0.702*w2 + 0.92*w3;',
-    '  float b = 0.165 + 0.800*w1 + 0.278*w2 + 1.00*w3;',
+    '  float r = 0.05 / abs(p.y + sin((rx + time) * xScale) * yScale);',
+    '  float g = 0.05 / abs(p.y + sin((gx + time) * xScale) * yScale);',
+    '  float b = 0.05 / abs(p.y + sin((bx + time) * xScale) * yScale);',
     '',
-    '  gl_FragColor = vec4(clamp(vec3(r, g, b), 0.0, 1.0), 1.0);',
+    '  gl_FragColor = vec4(r, g, b, 1.0);',
     '}'
   ].join('\n'));
 
@@ -74,20 +71,32 @@
   if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
   gl.useProgram(prog);
 
-  // ── Full-screen quad (two triangles) ─────────────────────
+  // ── Full-screen quad (two triangles, vec3 positions) ─────
   var buf = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, buf);
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-    -1, -1,   1, -1,   -1,  1,
-     1, -1,   1,  1,   -1,  1
+    -1.0, -1.0, 0.0,
+     1.0, -1.0, 0.0,
+    -1.0,  1.0, 0.0,
+     1.0, -1.0, 0.0,
+    -1.0,  1.0, 0.0,
+     1.0,  1.0, 0.0
   ]), gl.STATIC_DRAW);
 
-  var posLoc = gl.getAttribLocation(prog, 'a_pos');
+  var posLoc = gl.getAttribLocation(prog, 'position');
   gl.enableVertexAttribArray(posLoc);
-  gl.vertexAttribPointer(posLoc, 2, gl.FLOAT, false, 0, 0);
+  gl.vertexAttribPointer(posLoc, 3, gl.FLOAT, false, 0, 0);
 
-  var uRes = gl.getUniformLocation(prog, 'u_res');
-  var uT   = gl.getUniformLocation(prog, 'u_t');
+  var uRes        = gl.getUniformLocation(prog, 'resolution');
+  var uTime       = gl.getUniformLocation(prog, 'time');
+  var uXScale     = gl.getUniformLocation(prog, 'xScale');
+  var uYScale     = gl.getUniformLocation(prog, 'yScale');
+  var uDistortion = gl.getUniformLocation(prog, 'distortion');
+
+  // aliimam original default values
+  gl.uniform1f(uXScale,     1.0);
+  gl.uniform1f(uYScale,     0.5);
+  gl.uniform1f(uDistortion, 0.05);
 
   // ── Resize — match canvas to viewport ────────────────────
   function resize() {
@@ -106,8 +115,8 @@
   // ── Render loop ───────────────────────────────────────────
   var t = 0;
   function loop() {
-    t += 0.007;
-    gl.uniform1f(uT, t);
+    t += 0.01;
+    gl.uniform1f(uTime, t);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
     requestAnimationFrame(loop);
   }

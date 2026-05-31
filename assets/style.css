@@ -24,8 +24,8 @@
 html { scroll-behavior: smooth; }
 
 body {
-  /* Fallback colour if WebGL canvas doesn't load */
-  background: var(--bg);
+  /* Fallback colour if WebGL canvas doesn't load — black matches the shader background */
+  background: #000;
   color: var(--text);
   font-family: var(--font);
   font-size: 16px;
@@ -98,9 +98,9 @@ a:hover { text-decoration: underline; }
   background:
     linear-gradient(
       to right,
-      rgba(13, 27, 42, 0.88) 0%,
-      rgba(13, 27, 42, 0.65) 38%,
-      rgba(13, 27, 42, 0.20) 62%,
+      rgba(0, 0, 0, 0.82) 0%,
+      rgba(0, 0, 0, 0.55) 38%,
+      rgba(0, 0, 0, 0.15) 62%,
       transparent 100%
     ),
     linear-gradient(
@@ -642,8 +642,8 @@ a:hover { text-decoration: underline; }
   .hero-overlay {
     /* On mobile the overlay covers more of the canvas */
     background:
-      rgba(13, 27, 42, 0.78),
-      linear-gradient(to top, var(--bg2) 0%, transparent 18%);
+      rgba(0, 0, 0, 0.72),
+      linear-gradient(to top, var(--sec-a) 0%, transparent 18%);
   }
   .hero-sub { margin: 0 auto 36px; }
   .hero-phones {
